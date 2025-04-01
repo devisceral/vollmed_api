@@ -16,6 +16,7 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
+    private String telefone;
     private String email;
     private String cpf;
     @Embedded
@@ -25,6 +26,7 @@ public class Paciente {
         this.email = dados.email();
         this.nome = dados.nome();
         this.cpf = dados.cpf();
+        this.telefone = dados.telefone();
         this.endereco = new Endereco(dados.endereco());
     }
 }
