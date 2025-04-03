@@ -17,7 +17,7 @@ public class Paciente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String nome;
     private String telefone;
     private String email;
@@ -25,7 +25,10 @@ public class Paciente {
     @Embedded
     private Endereco endereco;
 
+    private Boolean ativo;
+
     public Paciente(DadosCadastroPaciente dados) {
+        this.ativo = true;
         this.email = dados.email();
         this.nome = dados.nome();
         this.cpf = dados.cpf();
@@ -37,5 +40,9 @@ public class Paciente {
         Optional.ofNullable(dados.nome()).ifPresent(nome -> this.nome = nome);
         Optional.ofNullable(dados.telefone()).ifPresent(telefone -> this.telefone = email);
         Optional.ofNullable(dados.endereco()).ifPresent(this.endereco::atualizarInformacoes);
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 }
