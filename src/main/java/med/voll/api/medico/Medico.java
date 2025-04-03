@@ -1,8 +1,11 @@
 package med.voll.api.medico;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 import med.voll.api.endereco.Endereco;
+
+import java.util.Optional;
 
 @Table(name = "medicos")
 @Entity(name = "Medico")
@@ -31,5 +34,13 @@ public class Medico {
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+    }
+
+    public void atualizarInformacoes(@Valid DadosAtualizacaoMedico dados) {
+
+        Optional.ofNullable(dados.nome()).ifPresent(nome -> this.nome = nome);
+        Optional.ofNullable(dados.telefone()).ifPresent(telefone -> this.telefone = email);
+        Optional.ofNullable(dados.endereco()).ifPresent(this.endereco::atualizarInformacoes);
+
     }
 }

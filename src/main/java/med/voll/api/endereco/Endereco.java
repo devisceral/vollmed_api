@@ -3,6 +3,8 @@ package med.voll.api.endereco;
 import jakarta.persistence.Embeddable;
 import lombok.*;
 
+import java.util.Optional;
+
 @Embeddable
 @Getter
 @NoArgsConstructor
@@ -26,5 +28,16 @@ public class Endereco {
         this.uf = dados.uf();
         this.numero = dados.numero();
         this.complemento =  dados.complemento();
+    }
+
+    public void atualizarInformacoes(DadosEndereco dados) {
+
+        Optional.ofNullable(dados.logradouro()).ifPresent(logradouro -> this.logradouro = logradouro);
+        Optional.ofNullable(dados.bairro()).ifPresent(bairro -> this.bairro = bairro);
+        Optional.ofNullable(dados.cep()).ifPresent(cep -> this.cep = cep);
+        Optional.ofNullable(dados.cidade()).ifPresent(cidade -> this.cidade = cidade);
+        Optional.ofNullable(dados.uf()).ifPresent(uf -> this.uf = uf);
+        Optional.ofNullable(dados.numero()).ifPresent(numero -> this.numero = numero);
+        Optional.ofNullable(dados.complemento()).ifPresent(complemento -> this.complemento = complemento);
     }
 }
